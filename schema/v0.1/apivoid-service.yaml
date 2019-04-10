@@ -1,0 +1,505 @@
+openDxlApi: '0.1'
+info:
+  title: 'APIVoid DXL Service'
+  version: 0.1.0
+  description: 'The APIVoid DXL Python service exposes access to the <a href=''https://app.apivoid.com/''>APIVoid Services</a> via the <a href=''http://www.mcafee.com/us/solutions/data-exchange-layer.aspx''>Data Exchange Layer</a> (DXL) fabric.'
+  contact:
+    name: OpenDXL
+    url: 'https://www.opendxl.com'
+solutions:
+  'APIVoid DXL Service':
+    info:
+      title: 'APIVoid DXL Service'
+      version: 0.2.0
+      description: 'The APIVoid DXL Service.'
+    externalDocs:
+      description: 'APIVoid Services Reference'
+      url: 'https://app.apivoid.com/'
+    services:
+      -
+        $ref: '#/services/APIVoid DXL Service'
+    events: []
+services:
+  'APIVoid DXL Service':
+    info:
+      title: 'APIVoid DXL Service'
+      version: 0.1.0
+      description: 'The APIVoid DXL Python service exposes access to the <a href=''https://app.apivoid.com/''>APIVoid Services</a> via the <a href=''http://www.mcafee.com/us/solutions/data-exchange-layer.aspx''>Data Exchange Layer</a> (DXL) fabric.'
+    externalDocs:
+      description: 'APIVoid DXL Python Service (GitHub)'
+      url: 'https://github.com/opendxl/opendxl-urlvoid-service-python'
+    requests:
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1iprep'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1iprep~1stats'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1domainbl'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1domainbl~1stats'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1dnslookup'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1dnslookup~1stats'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1sslinfo'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1sslinfo~1stats'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1threatlog'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1threatlog~1stats'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1emailverify'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1emailverify~1stats'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1domainage'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1domainage~1stats'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1parkeddomain'
+      -
+        $ref: '#/requests/~1opendxl-apivoid~1service~1apivoid~1parkeddomain~1stats'
+requests:
+  /opendxl-apivoid/service/apivoid/iprep:
+    description: 'Invokes an APIVoid ''IP reputation'' command and returns the results.'
+    payload:
+      properties:
+        ip:
+          description: 'IP address to target for the information request.'
+          type: string
+      required:
+        - ip
+      example:
+        ip: 90.156.201.27
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/ip-reputation/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.92
+          data:
+            report:
+              anonymity:
+                is_hosting: false
+                is_proxy: false
+                is_tor: false
+                is_vpn: false
+                is_webproxy: false
+              blacklists:
+                detection_rate: 0%
+                detections: 0
+                engines:
+                  '0':
+                    detected: false
+                    elapsed: '0.04'
+                    engine: EFnet_RBL
+                    reference: 'http://rbl.efnetrbl.org/multicheck.php'
+                  '1':
+                    detected: false
+                    elapsed: '0.24'
+                    engine: MegaRBL
+                    reference: 'https://www.megarbl.net/check'
+                engines_count: 2
+                scantime: '0.43'
+              information:
+                city_name: Moscow
+                continent_code: EU
+                continent_name: Europe
+                country_code: RU
+                country_name: 'Russian Federation'
+                isp: 'LLC Masterhost'
+                latitude: 55.752220153808594
+                longitude: 37.61555862426758
+                region_name: Moskva
+                reverse_dns: fe.shared.masterhost.ru
+          elapsed_time: '0.78'
+          estimated_queries: '311'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/iprep/stats:
+    description: 'Invokes an APIVoid ''stats remained'' (remaining queries available for the API key used by this service) command and returns the results, with individual values specific to the ''IP reputation'' command.'
+    payload:
+      description: 'An empty payload.'
+      example: ""
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/ip-reputation/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.92
+          elapsed_time: '0.02'
+          estimated_queries: '311'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/domainbl:
+    description: 'Invokes an APIVoid ''domain reputation'' command and returns the results.'
+    payload:
+      properties:
+        host:
+          description: 'The host to target for the information request.'
+          type: string
+      required:
+        - host
+      example:
+        host: 027.ru
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/domain-reputation/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.84
+          data:
+            report:
+              alexa_top_100k: false
+              alexa_top_10k: false
+              alexa_top_250k: false
+              blacklists:
+                detection_rate: 0%
+                detections: 0
+                engines:
+                  '0':
+                    confidence: low
+                    detected: false
+                    elapsed: '0.00'
+                    engine: 'Phishing Test'
+                    reference: 'https://www.novirusthanks.org/'
+                  '1':
+                    confidence: low
+                    detected: false
+                    elapsed: '0.00'
+                    engine: 'Scam Test'
+                    reference: 'https://www.novirusthanks.org/'
+                engines_count: 2
+                scantime: '0.74'
+              domain_length: 6
+              most_abused_tld: false
+          elapsed_time: '0.85'
+          estimated_queries: '310'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/domainbl/stats:
+    description: 'Invokes an APIVoid ''stats remained'' (remaining queries available for the API key used by this service) command and returns the results, with individual values specific to the ''domain reputation'' command.'
+    payload:
+      description: 'An empty payload.'
+      example: ""
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/domain-reputation/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.84
+          elapsed_time: '0.02'
+          estimated_queries: '310'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/dnslookup:
+    description: 'Invokes an APIVoid ''DNS lookup'' command and returns the results.'
+    payload:
+      properties:
+        action:
+          description: 'The type of DNS record to request.'
+          type: string
+        host:
+          description: 'The host to target for the information request.'
+          type: string
+      required:
+        - host
+        - action
+      example:
+        action: dns-a
+        host: 027.ru
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/dns-lookup/documentation/#sample-api-output-dns-a''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.72
+          data:
+            records:
+              count: 1
+              found: true
+              items:
+                -
+                  class: IN
+                  host: 027.ru
+                  ip: 46.38.62.7
+                  ttl: 3599
+                  type: A
+          elapsed_time: '0.33'
+          estimated_queries: '412'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/dnslookup/stats:
+    description: 'Invokes an APIVoid ''stats remained'' (remaining queries available for the API key used by this service) command and returns the results, with individual values specific to the ''DNS lookup'' command.'
+    payload:
+      description: 'An empty payload.'
+      example: ""
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/dns-lookup/documentation/#sample-api-output-dns-a''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.72
+          elapsed_time: '0.02'
+          estimated_queries: '412'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/sslinfo:
+    description: 'Invokes an APIVoid ''SSL info'' command and returns the results.'
+    payload:
+      properties:
+        host:
+          description: 'The host to target for the information request.'
+          type: string
+      required:
+        - host
+      example:
+        host: 027.ru
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/ssl-info/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.65
+          data:
+            certificate:
+              debug_message: 'Failed to connect to host on port 443'
+              found: false
+          elapsed_time: '0.23'
+          estimated_queries: '352'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/sslinfo/stats:
+    description: 'Invokes an APIVoid ''stats remained'' (remaining queries available for the API key used by this service) command and returns the results, with individual values specific to the ''SSL info'' command.'
+    payload:
+      description: 'An empty payload.'
+      example: ""
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/ssl-info/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.65
+          elapsed_time: '0.02'
+          estimated_queries: '352'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/threatlog:
+    description: 'Invokes an APIVoid ''ThreatLog'' command and returns the results.'
+    payload:
+      properties:
+        host:
+          description: 'The host to target for the information request.'
+          type: string
+      required:
+        - host
+      example:
+        host: 027.ru
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/threatlog/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.6
+          data:
+            threatlog:
+              detected: false
+              scantime: '0.00'
+          elapsed_time: '0.13'
+          estimated_queries: '492'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/threatlog/stats:
+    description: 'Invokes an APIVoid ''stats remained'' (remaining queries available for the API key used by this service) command and returns the results, with individual values specific to the ''ThreatLog'' command.'
+    payload:
+      description: 'An empty payload.'
+      example: ""
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/threatlog/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.6
+          elapsed_time: '0.02'
+          estimated_queries: '492'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/emailverify:
+    description: 'Invokes an APIVoid ''email verify'' command and returns the results.'
+    payload:
+      properties:
+        host:
+          description: 'The host to target for the information request.'
+          type: string
+      required:
+        - host
+      example:
+        host: 027.ru
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/email-verify/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.49
+          data:
+            alexa_top_10k: false
+            common_domain: false
+            dirty_words: false
+            disposable: false
+            has_mx_records: true
+            mistyped_domain: false
+            risky_tld: false
+            suggested_domain: ""
+          elapsed_time: '0.67'
+          estimated_queries: '408'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/emailverify/stats:
+    description: 'Invokes an APIVoid ''stats remained'' (remaining queries available for the API key used by this service) command and returns the results, with individual values specific to the ''email verify'' command.'
+    payload:
+      description: 'An empty payload.'
+      example: ""
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/email-verify/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 24.49
+          elapsed_time: '0.02'
+          estimated_queries: '408'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/domainage:
+    description: 'Invokes an APIVoid ''domain age'' command and returns the results.'
+    payload:
+      properties:
+        host:
+          description: 'The host to target for the information request.'
+          type: string
+      required:
+        - host
+      example:
+        host: 027.ru
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/domain-age/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 23.99
+          data:
+            domain_age_in_days: 4865
+            domain_creation_date: '2005-12-08'
+          elapsed_time: '0.51'
+          estimated_queries: '47'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/domainage/stats:
+    description: 'Invokes an APIVoid ''stats remained'' (remaining queries available for the API key used by this service) command and returns the results, with individual values specific to the ''domain age'' command.'
+    payload:
+      description: 'An empty payload.'
+      example: ""
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/domain-age/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 23.99
+          elapsed_time: '0.02'
+          estimated_queries: '47'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/parkeddomain:
+    description: 'Invokes an APIVoid ''parked domain'' command and returns the results.'
+    payload:
+      properties:
+        host:
+          description: 'The host to target for the information request.'
+          type: string
+      required:
+        - host
+      example:
+        host: 027.ru
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/parked-domain/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 23.49
+          data:
+            parked_domain: false
+          elapsed_time: '1.51'
+          estimated_queries: '46'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+  /opendxl-apivoid/service/apivoid/parkeddomain/stats:
+    description: 'Invokes an APIVoid ''stats remained'' (remaining queries available for the API key used by this service) command and returns the results, with individual values specific to the ''parked domain'' command.'
+    payload:
+      description: 'An empty payload.'
+      example: ""
+    response:
+      description: 'The contents of the DXL response payload will match exactly to the response provided by the APIVoid Service. Please see the <a href=''https://app.apivoid.com/dashboard/api/parked-domain/documentation/''>APIVoid Services Reference</a> for further details (may require users to log in).'
+      payload:
+        example:
+          credits_expiration: 'Sat, 27 Apr 2019 20:51:14 GMT'
+          credits_remained: 23.49
+          elapsed_time: '0.02'
+          estimated_queries: '46'
+          success: true
+    errorResponses:
+      '0':
+        payload:
+          $ref: '#/definitions/Error Response Object'
+definitions:
+  'Error Response Object':
+    properties:
+      errorMessage:
+        description: 'Message string containing service error information.'
+        type: string
+    example: 'Page not found'
