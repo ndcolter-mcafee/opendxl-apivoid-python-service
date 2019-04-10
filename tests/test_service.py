@@ -1,5 +1,4 @@
 import sys
-import time
 from configparser import ConfigParser
 from dxlbootstrap.util import MessageUtils
 from dxlclient import Request
@@ -58,7 +57,7 @@ class TestConfiguration(BaseClientTest):
 
                 expected_topics = []
 
-                for key in ApiVoidService.REQ_TOPICS_DICT.keys():
+                for key in ApiVoidService.REQ_TOPICS_DICT:
                     expected_topics.append(key)
                     expected_topics.append(key + "/" + ApiVoidService.REQ_TOPIC_SUFFIX_STATS)
 
@@ -163,7 +162,12 @@ class TestApiVoidRequestCallback(BaseClientTest):
 
                     request_topic = ApiVoidService.REQ_TOPIC_IP_REP
                     req = Request(request_topic)
-                    MessageUtils.dict_to_json_payload(req, {ApiVoidCallback.PARAM_IP: SAMPLE_IP})
+                    MessageUtils.dict_to_json_payload(
+                        req,
+                        {
+                            ApiVoidCallback.PARAM_IP: SAMPLE_IP
+                        }
+                    )
 
                     res = apivoid_service._dxl_client.sync_request(req, timeout=30)
 
@@ -190,7 +194,12 @@ class TestApiVoidRequestCallback(BaseClientTest):
 
                     request_topic = ApiVoidService.REQ_TOPIC_DOMAIN_REP
                     req = Request(request_topic)
-                    MessageUtils.dict_to_json_payload(req, {ApiVoidCallback.PARAM_HOST: SAMPLE_HOST})
+                    MessageUtils.dict_to_json_payload(
+                        req,
+                        {
+                            ApiVoidCallback.PARAM_HOST: SAMPLE_HOST
+                        }
+                    )
 
                     res = apivoid_service._dxl_client.sync_request(req, timeout=30)
 
@@ -250,7 +259,12 @@ class TestApiVoidRequestCallback(BaseClientTest):
 
                     request_topic = ApiVoidService.REQ_TOPIC_SSL_INFO
                     req = Request(request_topic)
-                    MessageUtils.dict_to_json_payload(req, {ApiVoidCallback.PARAM_HOST: SAMPLE_HOST})
+                    MessageUtils.dict_to_json_payload(
+                        req,
+                        {
+                            ApiVoidCallback.PARAM_HOST: SAMPLE_HOST
+                        }
+                    )
 
                     res = apivoid_service._dxl_client.sync_request(req, timeout=30)
 
@@ -277,7 +291,12 @@ class TestApiVoidRequestCallback(BaseClientTest):
 
                     request_topic = ApiVoidService.REQ_TOPIC_THREATLOG
                     req = Request(request_topic)
-                    MessageUtils.dict_to_json_payload(req, {ApiVoidCallback.PARAM_HOST: SAMPLE_HOST})
+                    MessageUtils.dict_to_json_payload(
+                        req,
+                        {
+                            ApiVoidCallback.PARAM_HOST: SAMPLE_HOST
+                        }
+                    )
 
                     res = apivoid_service._dxl_client.sync_request(req, timeout=30)
 
@@ -304,7 +323,12 @@ class TestApiVoidRequestCallback(BaseClientTest):
 
                     request_topic = ApiVoidService.REQ_TOPIC_EMAIL_VERIFY
                     req = Request(request_topic)
-                    MessageUtils.dict_to_json_payload(req, {ApiVoidCallback.PARAM_HOST: SAMPLE_HOST})
+                    MessageUtils.dict_to_json_payload(
+                        req,
+                        {
+                            ApiVoidCallback.PARAM_HOST: SAMPLE_HOST
+                        }
+                    )
 
                     res = apivoid_service._dxl_client.sync_request(req, timeout=30)
 
@@ -331,7 +355,12 @@ class TestApiVoidRequestCallback(BaseClientTest):
 
                     request_topic = ApiVoidService.REQ_TOPIC_DOMAIN_AGE
                     req = Request(request_topic)
-                    MessageUtils.dict_to_json_payload(req, {ApiVoidCallback.PARAM_HOST: SAMPLE_HOST})
+                    MessageUtils.dict_to_json_payload(
+                        req,
+                        {
+                            ApiVoidCallback.PARAM_HOST: SAMPLE_HOST
+                        }
+                    )
 
                     res = apivoid_service._dxl_client.sync_request(req, timeout=30)
 
@@ -358,7 +387,12 @@ class TestApiVoidRequestCallback(BaseClientTest):
 
                     request_topic = ApiVoidService.REQ_TOPIC_PARKED_DOMAIN
                     req = Request(request_topic)
-                    MessageUtils.dict_to_json_payload(req, {ApiVoidCallback.PARAM_HOST: SAMPLE_HOST})
+                    MessageUtils.dict_to_json_payload(
+                        req,
+                        {
+                            ApiVoidCallback.PARAM_HOST: SAMPLE_HOST
+                        }
+                    )
 
                     res = apivoid_service._dxl_client.sync_request(req, timeout=30)
 

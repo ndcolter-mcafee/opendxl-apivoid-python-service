@@ -46,7 +46,7 @@ class ApiVoidCallback(RequestCallback):
                 if param not in req_dict:
                     raise Exception("Required parameter not specified: '{0}'".format(param))
 
-    def on_request(self, request):
+    def on_request(self, request): #pylint
         """
         Invoked when a request message is received.
 
@@ -82,8 +82,8 @@ class ApiVoidCallback(RequestCallback):
                     self._validate(params)
 
                 if command == self._app.CMD_IP_REPUTATION:
-                    ip = params[self.PARAM_IP]
-                    api_url = "{0}&{1}={2}".format(api_url, self.PARAM_IP, ip)
+                    ip_param = params[self.PARAM_IP]
+                    api_url = "{0}&{1}={2}".format(api_url, self.PARAM_IP, ip_param)
                 elif command == self._app.CMD_DOMAIN_REPUTATION:
                     host = params[self.PARAM_HOST]
                     api_url = "{0}&{1}={2}".format(api_url, self.PARAM_HOST, host)
@@ -97,19 +97,7 @@ class ApiVoidCallback(RequestCallback):
                         self.PARAM_HOST,
                         host
                     )
-                elif command == self._app.CMD_SSL_INFO:
-                    host = params[self.PARAM_HOST]
-                    api_url = "{0}&{1}={2}".format(api_url, self.PARAM_HOST, host)
-                elif command == self._app.CMD_THREATLOG:
-                    host = params[self.PARAM_HOST]
-                    api_url = "{0}&{1}={2}".format(api_url, self.PARAM_HOST, host)
-                elif command == self._app.CMD_EMAIL_VERIFY:
-                    host = params[self.PARAM_HOST]
-                    api_url = "{0}&{1}={2}".format(api_url, self.PARAM_HOST, host)
-                elif command == self._app.CMD_DOMAIN_AGE:
-                    host = params[self.PARAM_HOST]
-                    api_url = "{0}&{1}={2}".format(api_url, self.PARAM_HOST, host)
-                elif command == self._app.CMD_PARKED_DOMAIN:
+                elif command in self._app.CMD_LIST:
                     host = params[self.PARAM_HOST]
                     api_url = "{0}&{1}={2}".format(api_url, self.PARAM_HOST, host)
 

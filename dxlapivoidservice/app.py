@@ -66,7 +66,19 @@ class ApiVoidService(Application):
     #: The "Stats Remained" suffix
     REQ_TOPIC_SUFFIX_STATS = "stats"
 
-    #: Full request topic list:
+    #: Full command list:
+    CMD_LIST = [
+        CMD_IP_REPUTATION,
+        CMD_DOMAIN_REPUTATION,
+        CMD_DNS_LOOKUP,
+        CMD_SSL_INFO,
+        CMD_THREATLOG,
+        CMD_EMAIL_VERIFY,
+        CMD_DOMAIN_AGE,
+        CMD_PARKED_DOMAIN
+    ]
+
+    #: Full request topic and required parameter(s) dictionary:
     REQ_TOPICS_DICT = {
         REQ_TOPIC_IP_REP: [ApiVoidCallback.PARAM_IP],
         REQ_TOPIC_DOMAIN_REP: [ApiVoidCallback.PARAM_HOST],
@@ -153,9 +165,7 @@ class ApiVoidService(Application):
         logger.info("Registering service: %s", "apivoidservice")
         service = ServiceRegistrationInfo(self._dxl_client, self.SERVICE_TYPE)
 
-        print(str(self.REQ_TOPICS_DICT.keys()))
-
-        for topic_key in self.REQ_TOPICS_DICT.keys():
+        for topic_key in self.REQ_TOPICS_DICT:
             topic = topic_key
             # Register request callback for this API call
             logger.info("Registering request callbacks: %s", topic)

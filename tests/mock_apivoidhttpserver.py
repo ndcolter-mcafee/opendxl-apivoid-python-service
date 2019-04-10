@@ -81,7 +81,7 @@ class MockApiVoidServerRequestHandler(SimpleHTTPRequestHandler):
 
     STATS_PATTERN = "stats"
 
-    def do_GET(self):
+    def do_GET(self): #pylint: disable=too-many-branches
 
         response_code = requests.codes.ok #pylint: disable=no-member
 
@@ -93,21 +93,21 @@ class MockApiVoidServerRequestHandler(SimpleHTTPRequestHandler):
             if self.STATS_PATTERN in parsed_query:
                 response_content = self.stats_remained_cmd()
             elif self.IP_REP_PATTERN in self.path:
-                response_content = self.ip_rep_cmd(self, parsed_url)
+                response_content = self.ip_rep_cmd(parsed_url)
             elif self.DOMAIN_REP_PATTERN in self.path:
-                response_content = self.domain_rep_cmd(self, parsed_url)
+                response_content = self.domain_rep_cmd(parsed_url)
             elif self.DNS_LOOKUP_PATTERN in self.path:
-                response_content = self.dns_lookup_cmd(self, parsed_url)
+                response_content = self.dns_lookup_cmd(parsed_url)
             elif self.SSL_INFO_PATTERN in self.path:
-                response_content = self.ssl_info_cmd(self, parsed_url)
+                response_content = self.ssl_info_cmd(parsed_url)
             elif self.THREATLOG_PATTERN in self.path:
-                response_content = self.threatlog_cmd(self, parsed_url)
+                response_content = self.threatlog_cmd(parsed_url)
             elif self.EMAIL_VERIFY_PATTERN in self.path:
-                response_content = self.email_verify_cmd(self, parsed_url)
+                response_content = self.email_verify_cmd(parsed_url)
             elif self.DOMAIN_AGE_PATTERN in self.path:
-                response_content = self.domain_age_cmd(self, parsed_url)
+                response_content = self.domain_age_cmd(parsed_url)
             elif self.PARKED_DOMAIN_PATTERN in self.path:
-                response_content = self.parked_domain_cmd(self, parsed_url)
+                response_content = self.parked_domain_cmd(parsed_url)
 
             elif HTTP_ERROR_SERVER_PATH in self.path:
                 response_code = requests.codes.internal_server_error #pylint: disable=no-member
@@ -134,23 +134,23 @@ class MockApiVoidServerRequestHandler(SimpleHTTPRequestHandler):
         return MessageUtils.dict_to_json(SAMPLE_STATS_REMAINED, pretty_print=False)
 
     @staticmethod
-    def ip_rep_cmd(self, parsed_url):
-        ip = \
+    def ip_rep_cmd(parsed_url):
+        ip_param = \
             urlparse.parse_qs(parsed_url.query)[ApiVoidCallback.PARAM_IP][0]
-        if ip == SAMPLE_IP:
+        if ip_param == SAMPLE_IP:
             return MessageUtils.dict_to_json(SAMPLE_IP_REP, pretty_print=False)
-        return self.bad_param(ApiVoidCallback.PARAM_IP, ip)
+        return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_IP, ip_param)
 
     @staticmethod
-    def domain_rep_cmd(self, parsed_url):
+    def domain_rep_cmd(parsed_url):
         host = \
             urlparse.parse_qs(parsed_url.query)[ApiVoidCallback.PARAM_HOST][0]
         if host == SAMPLE_HOST:
             return MessageUtils.dict_to_json(SAMPLE_DOMAIN_REP, pretty_print=False)
-        return self.bad_param(ApiVoidCallback.PARAM_HOST, host)
+        return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_HOST, host)
 
     @staticmethod
-    def dns_lookup_cmd(self, parsed_url):
+    def dns_lookup_cmd(parsed_url):
         action = \
             urlparse.parse_qs(parsed_url.query)[ApiVoidCallback.PARAM_ACTION][0]
         host = \
@@ -158,48 +158,48 @@ class MockApiVoidServerRequestHandler(SimpleHTTPRequestHandler):
         if action == SAMPLE_ACTION:
             if host == SAMPLE_HOST:
                 return MessageUtils.dict_to_json(SAMPLE_DNS_LOOKUP, pretty_print=False)
-            return self.bad_param(ApiVoidCallback.PARAM_HOST, host)
-        return self.bad_param(ApiVoidCallback.PARAM_ACTION, action)
+            return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_HOST, host)
+        return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_ACTION, action)
 
     @staticmethod
-    def ssl_info_cmd(self, parsed_url):
+    def ssl_info_cmd(parsed_url):
         host = \
             urlparse.parse_qs(parsed_url.query)[ApiVoidCallback.PARAM_HOST][0]
         if host == SAMPLE_HOST:
             return MessageUtils.dict_to_json(SAMPLE_SSL_INFO, pretty_print=False)
-        return self.bad_param(ApiVoidCallback.PARAM_HOST, host)
+        return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_HOST, host)
 
     @staticmethod
-    def threatlog_cmd(self, parsed_url):
+    def threatlog_cmd(parsed_url):
         host = \
             urlparse.parse_qs(parsed_url.query)[ApiVoidCallback.PARAM_HOST][0]
         if host == SAMPLE_HOST:
             return MessageUtils.dict_to_json(SAMPLE_THREATLOG, pretty_print=False)
-        return self.bad_param(ApiVoidCallback.PARAM_HOST, host)
+        return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_HOST, host)
 
     @staticmethod
-    def email_verify_cmd(self, parsed_url):
+    def email_verify_cmd(parsed_url):
         host = \
             urlparse.parse_qs(parsed_url.query)[ApiVoidCallback.PARAM_HOST][0]
         if host == SAMPLE_HOST:
             return MessageUtils.dict_to_json(SAMPLE_EMAIL_VERIFY, pretty_print=False)
-        return self.bad_param(ApiVoidCallback.PARAM_HOST, host)
+        return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_HOST, host)
 
     @staticmethod
-    def domain_age_cmd(self, parsed_url):
+    def domain_age_cmd(parsed_url):
         host = \
             urlparse.parse_qs(parsed_url.query)[ApiVoidCallback.PARAM_HOST][0]
         if host == SAMPLE_HOST:
             return MessageUtils.dict_to_json(SAMPLE_DOMAIN_AGE, pretty_print=False)
-        return self.bad_param(ApiVoidCallback.PARAM_HOST, host)
+        return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_HOST, host)
 
     @staticmethod
-    def parked_domain_cmd(self, parsed_url):
+    def parked_domain_cmd(parsed_url):
         host = \
             urlparse.parse_qs(parsed_url.query)[ApiVoidCallback.PARAM_HOST][0]
         if host == SAMPLE_HOST:
             return MessageUtils.dict_to_json(SAMPLE_PARKED_DOMAIN, pretty_print=False)
-        return self.bad_param(ApiVoidCallback.PARAM_HOST, host)
+        return MockApiVoidServerRequestHandler.bad_param(ApiVoidCallback.PARAM_HOST, host)
 
 
     @staticmethod
