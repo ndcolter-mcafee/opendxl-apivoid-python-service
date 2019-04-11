@@ -1,4 +1,4 @@
-Basic Stats Remained Example
+Basic Domain Reputation Example
 ============================
 
 This sample retrieves and displays the blacklist status of a domain by invoking the APIVoid service via DXL.

@@ -1,4 +1,4 @@
-Basic Stats Remained Example
+Basic Domain Age Example
 ============================
 
 This sample retrieves and displays the registration date of a domain and the domain age in days by invoking the

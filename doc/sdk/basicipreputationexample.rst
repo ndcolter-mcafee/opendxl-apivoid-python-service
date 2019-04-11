@@ -1,4 +1,4 @@
-Basic Stats Remained Example
+Basic IP Reputation Example
 ============================
 
 This sample retrieves and displays the safety reputation of an IP address by invoking the APIVoid service via DXL.

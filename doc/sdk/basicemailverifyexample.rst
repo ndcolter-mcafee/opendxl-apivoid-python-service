@@ -1,4 +1,4 @@
-Basic Stats Remained Example
+Basic Email Verify Example
 ============================
 
 This sample retrieves and displays email verification information for a domain by invoking the APIVoid service via

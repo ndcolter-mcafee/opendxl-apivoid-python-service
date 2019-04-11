@@ -1,4 +1,4 @@
-Basic Stats Remained Example
+Basic SSL Info Example
 ============================
 
 This sample retrieves and displays the SSL information for a host by invoking the APIVoid service via DXL.

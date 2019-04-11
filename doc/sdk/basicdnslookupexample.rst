@@ -1,4 +1,4 @@
-Basic Stats Remained Example
+Basic DNS Lookup Example
 ============================
 
 This sample retrieves and displays the DNS records of a given type (CNAME, SOA, etc.) for a host by invoking the

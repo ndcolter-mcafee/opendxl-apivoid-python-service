@@ -1,4 +1,4 @@
-Basic Stats Remained Example
+Basic Parked Domain Example
 ============================
 
 This sample retrieves and displays if a domain (i.e google.com) is actually parked by invoking the APIVoid service
