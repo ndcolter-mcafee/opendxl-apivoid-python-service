@@ -84,7 +84,7 @@ The majority of the sample code is shown below:
                     request_topic, res.error_message, res.error_code))
 
 
-After connecting to the DXL fabric, a `request message` is created with a topic that targets the "stats remained" method
+After connecting to the DXL fabric, a `request message` is created with a topic that targets a "stats remained" method
 of the APIVoid DXL service.
 
 The final step is to perform a `synchronous request` via the DXL fabric. If the `response message` is not an error

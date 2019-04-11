@@ -1,7 +1,7 @@
 Basic Stats Remained Example
 ============================
 
-This sample retrieves and displays the blacklist status of an domain by invoking the APIVoid service via DXL.
+This sample retrieves and displays the blacklist status of a domain by invoking the APIVoid service via DXL.
 
 For more information see the API Services documentation:
     https://app.apivoid.com/dashboard/api/ip-reputation/documentation/

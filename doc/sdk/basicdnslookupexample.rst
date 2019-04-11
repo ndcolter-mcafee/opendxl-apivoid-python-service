@@ -1,7 +1,7 @@
 Basic Stats Remained Example
 ============================
 
-This sample retrieves and displays the DNS records of a given type (CNAME, SOA, etc.)  for a host by invoking the
+This sample retrieves and displays the DNS records of a given type (CNAME, SOA, etc.) for a host by invoking the
 APIVoid service via DXL.
 
 For more information, including a list of supported DNS record types, see the API Services documentation:
